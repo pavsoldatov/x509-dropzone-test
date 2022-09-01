@@ -1,5 +1,5 @@
 .CardContent {
   display: flex;
-  justify-content: space-between;
+  gap: 10%;
   min-height: 50vh;
 }

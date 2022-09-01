@@ -1,5 +1,5 @@
 .Card {
-  width: 50%;
+  min-width: 50%;
 
   background-color: white;
   padding: 2rem;

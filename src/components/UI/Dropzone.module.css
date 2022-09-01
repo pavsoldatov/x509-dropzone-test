@@ -1,0 +1,20 @@
+.Dropzone {
+  display: flex;
+  align-items: center;
+  width: 60%;
+
+  background-color: #f5f5f5;
+  border: 2px dashed #d4d4d4;
+  border-radius: 2px;
+  color: #929292;
+  outline: none;
+  transition: border 200ms ease-in-out;
+}
+
+.Dropzone:focus {
+  border-color: #2196f3;
+}
+
+.Dropzone > p {
+  padding: 0 1rem;
+}
