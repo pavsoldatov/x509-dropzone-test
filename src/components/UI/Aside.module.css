@@ -1,7 +1,6 @@
 .Aside {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 30px;
+  justify-content: space-around;
   width: 35%;
 }
