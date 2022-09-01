@@ -1,7 +1,19 @@
 import styles from "./AddButton.module.css";
 
 const AddButton = (props) => {
-  return <button className={styles.AddButton}>Додати</button>;
+  return (
+    <>
+      {props.addIsActive ? (
+        <button onClick={props.onAddClick} className={styles.AddButton}>
+          Додати
+        </button>
+      ) : (
+        <button onClick={props.onAddClick} className={styles.AddButton}>
+          Скасувати
+        </button>
+      )}
+    </>
+  );
 };
 
 export default AddButton;

@@ -1,7 +1,6 @@
 .select {
   height: 40%;
   font-family: inherit;
-  appearance: none;
   outline: 0;
   box-shadow: none;
   border: none;
@@ -23,9 +22,12 @@
 .select > option {
   display: flex;
   align-items: center;
-  height: 2em;
+  min-height: 2em;
+  max-width: inherit;
+  padding-right: 1.5rem;
   padding-left: 4px;
   overflow: hidden;
+  white-space: normal;
   border: 1px solid black;
   position: relative;
 }
