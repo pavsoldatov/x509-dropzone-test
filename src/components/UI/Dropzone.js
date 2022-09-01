@@ -11,12 +11,11 @@ const Dropzone = (props) => {
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
-        const base64 = reader.result.split("base64,")[1];
-        const cert = new x509.X509Certificate(base64);
-
-        console.log(cert);
+        // const base64 = reader.result.split("base64,")[1];
+        const cert = new x509.X509Certificate(reader.result);
+        props.onAddCerts(cert);
       };
-      reader.readAsDataURL(file);
+      reader.readAsArrayBuffer(file);
     });
   }, []);
 
@@ -25,12 +24,11 @@ const Dropzone = (props) => {
   });
   console.log(acceptedFiles);
   return (
-    <div {...getRootProps({className: styles.Dropzone})}>
+    <div {...getRootProps({ className: styles.Dropzone })}>
       <input {...getInputProps()} />
       <p>Drag 'n' drop some files here, or click to select files</p>
     </div>
   );
 };
 
-
-export default Dropzone
+export default Dropzone;
