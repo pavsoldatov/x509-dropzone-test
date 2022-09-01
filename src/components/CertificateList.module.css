@@ -1,0 +1,49 @@
+.select {
+  height: 100%;
+  font-family: inherit;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: none;
+  background: none;
+}
+
+.select::-webkit-scrollbar {
+  width: 9px;
+}
+.select::-webkit-scrollbar-track {
+  background: transparent;
+}
+.select::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}
+
+.select > option {
+  display: flex;
+  align-items: center;
+  height: 2em;
+  padding-left: 4px;
+  overflow: hidden;
+  border: 1px solid black;
+  position: relative;
+}
+
+.select > option:not(:last-of-type) {
+  border-bottom: none;
+}
+
+.select > option::after {
+  content: "\25BC";
+  color: #555;
+  position: absolute;
+  transform: rotate(-90deg) scale(0.75);
+
+  right: 0;
+  padding: 0 1em;
+}
+
+.select > option:active {
+  background: #fff;
+}

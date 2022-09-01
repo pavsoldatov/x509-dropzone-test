@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import ASN1 from "@lapo/asn1js";
+
+import Card from "./components/UI/Card";
+import Main from "./components/Layout/Main";
+import CardContent from "./components/Layout/CardContent";
+
+import styles from "./App.module.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.App}>
+      <Main>
+        <Card>
+          <CardContent />
+        </Card>
+      </Main>
+      <footer>Footer</footer>
     </div>
   );
 }
