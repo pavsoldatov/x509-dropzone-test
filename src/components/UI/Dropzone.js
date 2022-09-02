@@ -29,33 +29,38 @@ const getPayload = (certificate) => {
   return payload;
 };
 
-const Dropzone = ({
-  onSetPayload,
-  onResetPayload,
-  onAddCommonName,
-  ...props
-}) => {
+const Dropzone = ({ onSetPayload }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      onResetPayload([]);
-
-      acceptedFiles.forEach((file) => {
-        const reader = new FileReader();
-        reader.onabort = () => {
-          throw new Error("file reading was aborted");
-        };
-        reader.onerror = () => {
-          throw new Error("file reading has failed");
-        };
-        reader.onload = () => {
-          const cert = new x509.X509Certificate(reader.result);
-          const payload = getPayload(cert);
-          onSetPayload(payload);
-        };
-        reader.readAsArrayBuffer(file);
+      const promises = acceptedFiles.map(function (file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onabort = () => {
+            reject("file reading was aborted");
+          };
+          reader.onerror = () => {
+            reject("file reading has failed");
+          };
+          reader.onload = () => {
+            const cert = new x509.X509Certificate(reader.result);
+            const payload = getPayload(cert); // parses my certificate into a JSON payload
+            resolve(payload);
+          };
+          reader.readAsArrayBuffer(file);
+        });
       });
+
+      Promise.all(promises).then(
+        (resultArr) => {
+          // resultArr is an array of all the promise results.  It should be the array you are after
+          onSetPayload(resultArr);
+        }
+        // (error) => {
+        //   console.log(error)
+        // }
+      );
     },
-    [onSetPayload, onResetPayload]
+    [onSetPayload]
   );
 
   const { fileRejections, getRootProps, getInputProps } = useDropzone({
