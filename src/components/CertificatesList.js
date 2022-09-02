@@ -1,14 +1,16 @@
 import styles from "./CertificateList.module.css";
 
-const CertificateList = ({ commonNames, ...props }) => {
-  const mappedCommonNames = commonNames.map((commonName) => {
-    const timeKey = new Date().getTime() * Math.random() * 100000;
-    return <option key={timeKey}>{commonName};</option>;
+const CertificateList = ({ commonNames, payload, ...props }) => {
+  const mappedCNs = payload.map((payloadItem) => {
+    const key = payloadItem.serialNumber;
+    const subjectCommonName = payloadItem.subjectCN;
+
+    return <option key={key}>{subjectCommonName}</option>;
   });
 
   return (
     <select className={styles.select} size="2">
-      {mappedCommonNames}
+      {mappedCNs}
     </select>
   );
 };

@@ -3,31 +3,62 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import * as x509 from "@peculiar/x509";
 
-const getCommonName = (subject) => {
-  const indxStart = subject.indexOf("CN=");
-  const indxEnd = subject.indexOf(",", indxStart);
-  return subject.slice(indxStart + 3, indxEnd);
+const getPayload = (certificate) => {
+  const serialNumber = certificate.serialNumber;
+  const validFrom = certificate.notBefore;
+  const validTill = certificate.notAfter;
+
+  const subject = certificate.subject;
+  const subjStartInx = subject.indexOf("CN=");
+  const subjEndInx = subject.indexOf(",", subjStartInx);
+  const subjCN = subject.slice(subjStartInx + 3, subjEndInx);
+
+  const issuer = certificate.issuer;
+  const issuerStartInx = issuer.indexOf("CN=");
+  const issuerEndInx = issuer.indexOf(",", issuerStartInx);
+  const issuerCN = issuer.slice(issuerStartInx + 3, issuerEndInx);
+
+  const payload = {
+    serialNumber: serialNumber, // our react key
+    subjectCN: subjCN,
+    issuerCN: issuerCN,
+    validFrom: validFrom,
+    validTill: validTill,
+  };
+
+  return payload;
 };
 
-const Dropzone = (props) => {
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
+const Dropzone = ({
+  onSetPayload,
+  onResetPayload,
+  onAddCommonName,
+  ...props
+}) => {
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      onResetPayload([]);
 
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        // const base64 = reader.result.split("base64,")[1];
-        const cert = new x509.X509Certificate(reader.result);
-        const commonName = getCommonName(cert.subject);
+      acceptedFiles.forEach((file) => {
+        const reader = new FileReader();
+        reader.onabort = () => {
+          throw new Error("file reading was aborted");
+        };
+        reader.onerror = () => {
+          throw new Error("file reading has failed");
+        };
+        reader.onload = () => {
+          const cert = new x509.X509Certificate(reader.result);
+          const payload = getPayload(cert);
+          onSetPayload(payload);
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    },
+    [onSetPayload, onResetPayload]
+  );
 
-        props.onAddCommonName(commonName);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
-
-  const { acceptedFiles, fileRejections, getRootProps, getInputProps } = useDropzone({
+  const { fileRejections, getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
       "application/pkix-cert": [".cer"],
@@ -35,11 +66,22 @@ const Dropzone = (props) => {
     },
   });
 
+  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+    <label key={file.path}>
+      <strong>{file.path} is rejected.</strong>
+      {errors.map((e) => (
+        <p key={e.code}>{e.message}</p>
+      ))}
+    </label>
+  ));
+
   return (
     <div {...getRootProps({ className: styles.Dropzone })}>
       <input {...getInputProps()} />
-      <p>Drag 'n' drop some files here, or click to select files.</p>
+      <p>Drag 'n drop some files here, or click to select files.</p>
       <em>Only *.cer files will be accepted.</em>
+      <br />
+      {fileRejectionItems}
     </div>
   );
 };

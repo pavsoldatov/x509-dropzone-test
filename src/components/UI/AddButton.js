@@ -5,11 +5,11 @@ const AddButton = (props) => {
     <>
       {props.addIsActive ? (
         <button onClick={props.onAddClick} className={styles.AddButton}>
-          Додати
+          Скасувати
         </button>
       ) : (
         <button onClick={props.onAddClick} className={styles.AddButton}>
-          Скасувати
+          Додати
         </button>
       )}
     </>

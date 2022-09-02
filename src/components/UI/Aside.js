@@ -15,11 +15,11 @@ const Aside = (props) => {
       "O=Фізична особа - підприємець Таксер Тест Тестович, OU=Фізична особа - підприємець, T=фізична особа - підприємець, CN=Таксер Тест Тестович, SN=Таксер, G=Тест Тестович, 2.5.4.5=4802, C=UA, L=Київ";
       "O=Тест, OU=Тест, T=Директор, CN=Тестувальник Tellipse 1111, SN=Тестувальник, G=Tellipse 1111, 2.5.4.5=579, C=UA, L=Київ"; */
 
-
+  
 
   return (
     <aside className={styles.Aside}>
-      <CertificateList commonNames={props.commonNames} />
+      <CertificateList commonNames={props.commonNames} payload={props.payload} />
       <AddButton addIsActive={props.addIsActive} onAddClick={props.onAddClick}/>
     </aside>
   );
