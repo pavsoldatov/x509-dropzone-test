@@ -2,6 +2,7 @@ import styles from "./CardContent.module.css";
 import Aside from "../UI/Aside";
 import Dropzone from "../UI/Dropzone";
 import * as x509 from "@peculiar/x509";
+import Output from "../UI/Output";
 
 import { useState } from "react";
 
@@ -19,14 +20,7 @@ const CardContent = (props) => {
         addIsActive={addIsActive}
         payload={payload}
       />
-      {addIsActive ? (
-        <Dropzone
-          onSetPayload={getPayload}
-          onResetPayload={setPayload}
-        />
-      ) : (
-        <output style={{ border: "2px solid #333" }}>This is output</output>
-      )}
+      {addIsActive ? <Dropzone onSetPayload={getPayload} /> : <Output />}
     </section>
   );
 };

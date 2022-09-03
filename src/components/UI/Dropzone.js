@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import * as x509 from "@peculiar/x509";
 
-const getPayload = (certificate) => {
+const getCertificatePayload = (certificate) => {
   const serialNumber = certificate.serialNumber;
   const validFrom = certificate.notBefore;
   const validTill = certificate.notAfter;
@@ -35,15 +35,11 @@ const Dropzone = ({ onSetPayload }) => {
       const promises = acceptedFiles.map(function (file) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
-          reader.onabort = () => {
-            reject("file reading was aborted");
-          };
-          reader.onerror = () => {
-            reject("file reading has failed");
-          };
+          reader.onabort = () => reject("file reading was aborted");
+          reader.onerror = () => reject("file reading has failed");
           reader.onload = () => {
             const cert = new x509.X509Certificate(reader.result);
-            const payload = getPayload(cert); // parses my certificate into a JSON payload
+            const payload = getCertificatePayload(cert);
             resolve(payload);
           };
           reader.readAsArrayBuffer(file);
@@ -52,12 +48,11 @@ const Dropzone = ({ onSetPayload }) => {
 
       Promise.all(promises).then(
         (resultArr) => {
-          // resultArr is an array of all the promise results.  It should be the array you are after
           onSetPayload(resultArr);
+        },
+        (error) => {
+          // console.log(error)
         }
-        // (error) => {
-        //   console.log(error)
-        // }
       );
     },
     [onSetPayload]

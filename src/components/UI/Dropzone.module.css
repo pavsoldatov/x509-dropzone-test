@@ -1,10 +1,10 @@
 .Dropzone {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 60%;
 
   background-color: #f5f5f5;
   border: 2px dashed #d4d4d4;
