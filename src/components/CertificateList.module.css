@@ -49,7 +49,3 @@
   right: 0;
   padding: 0 1em;
 }
-
-.select > option:active {
-  background: #fff;
-}

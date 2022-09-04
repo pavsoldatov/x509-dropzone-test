@@ -5,8 +5,8 @@ import * as x509 from "@peculiar/x509";
 
 const getCertificatePayload = (certificate) => {
   const serialNumber = certificate.serialNumber;
-  const validFrom = certificate.notBefore;
-  const validTill = certificate.notAfter;
+  const validFrom = certificate.notBefore.toLocaleDateString("uk-UA");
+  const validTill = certificate.notAfter.toLocaleDateString("uk-UA");
 
   const subject = certificate.subject;
   const subjStartInx = subject.indexOf("CN=");
@@ -29,7 +29,7 @@ const getCertificatePayload = (certificate) => {
   return payload;
 };
 
-const Dropzone = ({ onSetPayload }) => {
+const Dropzone = ({ onSetPayload, ...props }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
       const promises = acceptedFiles.map(function (file) {
