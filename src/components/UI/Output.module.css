@@ -1,5 +1,10 @@
 .Output {
-    border: 1px solid #333;
-    flex: 1;
-    display: flex;
+  border: 1px solid #333;
+  flex: 1;
+  display: flex;
+  padding: 2px 4px;
+}
+
+.Output > ul {
+  list-style-type: none;
 }

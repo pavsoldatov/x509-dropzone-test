@@ -1,16 +1,25 @@
 import styles from "./CertificateList.module.css";
 
-const CertificateList = ({ commonNames, payload, ...props }) => {
-  const mappedCNs = payload.map((payloadItem) => {
+const CertificateList = ({ payload, ...props }) => {
+  const commonNames = payload.map((payloadItem) => {
     const key = payloadItem.serialNumber;
     const subjectCommonName = payloadItem.subjectCN;
 
-    return <option key={key}>{subjectCommonName}</option>;
+    const handleClick = () => {
+      props.onAddClick(false);
+      props.onLiftUpListItem(payloadItem);
+    };
+
+    return (
+      <option onClick={handleClick} key={key}>
+        {subjectCommonName}
+      </option>
+    );
   });
 
   return (
     <select className={styles.select} size="2">
-      {mappedCNs}
+      {commonNames}
     </select>
   );
 };

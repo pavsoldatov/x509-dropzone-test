@@ -1,14 +1,18 @@
 import styles from "./AddButton.module.css";
 
 const AddButton = (props) => {
+  const handleClick = () => {
+    props.onAddClick((prevState) => !prevState);
+  };
+
   return (
     <>
       {props.addIsActive ? (
-        <button onClick={props.onAddClick} className={styles.AddButton}>
+        <button onClick={handleClick} className={styles.AddButton}>
           Скасувати
         </button>
       ) : (
-        <button onClick={props.onAddClick} className={styles.AddButton}>
+        <button onClick={handleClick} className={styles.AddButton}>
           Додати
         </button>
       )}

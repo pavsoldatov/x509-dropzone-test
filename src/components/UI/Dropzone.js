@@ -46,14 +46,9 @@ const Dropzone = ({ onSetPayload }) => {
         });
       });
 
-      Promise.all(promises).then(
-        (resultArr) => {
-          onSetPayload(resultArr);
-        },
-        (error) => {
-          // console.log(error)
-        }
-      );
+      Promise.all(promises).then((resultArr) => {
+        onSetPayload(resultArr);
+      });
     },
     [onSetPayload]
   );
@@ -68,9 +63,9 @@ const Dropzone = ({ onSetPayload }) => {
 
   const fileRejectionItems = fileRejections.map(({ file, errors }) => (
     <label key={file.path}>
-      <strong>{file.path} is rejected.</strong>
-      {errors.map((e) => (
-        <p key={e.code}>{e.message}</p>
+      <strong>{file.path} відхилено.</strong>
+      {errors.map((er) => (
+        <p key={er.code}>Файл повинен мати розширення *.cer.</p>
       ))}
     </label>
   ));
@@ -78,8 +73,8 @@ const Dropzone = ({ onSetPayload }) => {
   return (
     <div {...getRootProps({ className: styles.Dropzone })}>
       <input {...getInputProps()} />
-      <p>Drag 'n drop some files here, or click to select files.</p>
-      <em>Only *.cer files will be accepted.</em>
+      <p>Натисніть або перетягніть сертифікат сюди.</p>
+      <em>Додати можна лише файли з розширенням *.cer.</em>
       <br />
       {fileRejectionItems}
     </div>

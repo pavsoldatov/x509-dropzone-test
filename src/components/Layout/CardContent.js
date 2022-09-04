@@ -8,19 +8,29 @@ import { useState } from "react";
 
 const CardContent = (props) => {
   const [addIsActive, setAddIsActive] = useState(true);
-  const toggleAddButton = () => setAddIsActive((prevState) => !prevState);
 
   const [payload, setPayload] = useState([]);
   const getPayload = (payload) => setPayload(payload);
 
+  const [selectedItem, setSelectedItem] = useState();
+  const getSelectedListItem = (listItem) => setSelectedItem(listItem);
+
   return (
     <section className={styles.CardContent}>
       <Aside
-        onAddClick={toggleAddButton}
+        onAddClick={setAddIsActive}
         addIsActive={addIsActive}
         payload={payload}
+        onLiftUpListItem={getSelectedListItem}
       />
-      {addIsActive ? <Dropzone onSetPayload={getPayload} /> : <Output />}
+      {addIsActive ? (
+        <Dropzone onSetPayload={getPayload} />
+      ) : (
+        <Output
+          selectedItem={selectedItem}
+          addIsActive={addIsActive}
+        />
+      )}
     </section>
   );
 };

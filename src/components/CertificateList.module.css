@@ -5,6 +5,10 @@
   box-shadow: none;
   border: none;
   background: none;
+
+  padding: 2px;
+  padding-right: 0;
+  border: 1px #e7e7e7 solid;
 }
 
 .select::-webkit-scrollbar {
@@ -22,9 +26,9 @@
 .select > option {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 2em;
-  max-width: inherit;
-  padding-right: 1.5rem;
+  padding-right: 2rem;
   padding-left: 4px;
   overflow: hidden;
   white-space: normal;
