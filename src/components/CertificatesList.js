@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from "./CertificateList.module.css";
 
 const CertificateList = ({ payload, ...props }) => {

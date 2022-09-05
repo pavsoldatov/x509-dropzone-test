@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from "./Output.module.css";
 
 const Output = ({ selectedItem, addIsActive, ...props }) => {

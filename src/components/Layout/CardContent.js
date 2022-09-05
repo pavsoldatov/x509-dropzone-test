@@ -1,9 +1,10 @@
-import styles from "./CardContent.module.css";
+import React from "react";
+import { useState, useEffect } from "react";
 import Aside from "../UI/Aside";
 import Dropzone from "../UI/Dropzone";
 import Output from "../UI/Output";
+import styles from "./CardContent.module.css";
 
-import { useState, useEffect } from "react";
 
 const CardContent = () => {
   const [addIsActive, setAddIsActive] = useState(true);

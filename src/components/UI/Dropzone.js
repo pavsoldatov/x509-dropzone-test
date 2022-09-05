@@ -1,7 +1,8 @@
-import styles from "./Dropzone.module.css";
+import React from 'react';
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import * as x509 from "@peculiar/x509";
+import styles from "./Dropzone.module.css";
 
 const getCertificatePayload = (certificate) => {
   const serialNumber = certificate.serialNumber;
