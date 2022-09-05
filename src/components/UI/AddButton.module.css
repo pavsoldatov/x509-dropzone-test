@@ -2,4 +2,37 @@
   padding: 6px 0;
   width: 70%;
   margin: 0 auto 20px auto;
+
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #000000;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.AddButton:active {
+  background-color: #e3e3e3;
+}
+
+.AddButton:hover {
+  background-color: #f2f2f2;
+}
+
+.AddButtonActive {
+  padding: 6px 0;
+  width: 70%;
+  margin: 0 auto 20px auto;
+  color: #f2f2f2;
+
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #333;
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.AddButtonActive:hover {
+  background-color: #3f3f3f;
 }

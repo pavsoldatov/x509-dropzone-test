@@ -8,7 +8,7 @@ const AddButton = (props) => {
   return (
     <>
       {props.addIsActive ? (
-        <button onClick={handleClick} className={styles.AddButton}>
+        <button onClick={handleClick} className={styles.AddButtonActive}>
           Скасувати
         </button>
       ) : (

@@ -12,7 +12,7 @@ function App() {
           <CardContent />
         </Card>
       </Main>
-      <footer>Footer</footer>
+      <footer></footer>
     </div>
   );
 }
