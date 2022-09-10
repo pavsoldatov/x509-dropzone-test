@@ -6,13 +6,13 @@ import AddButton from "./AddButton";
 
 const Aside = (props) => {
 
-  const liftUpListItem = (listItem) => props.onLiftUpListItem(listItem);
+  const liftUpSelectedItem = (listItem) => props.onLiftUpSelectedItem(listItem);
 
   return (
     <aside className={styles.Aside}>
       <CertificateList
         payload={props.payload}
-        onLiftUpListItem={liftUpListItem}
+        onLiftUpSelectedItem={liftUpSelectedItem}
         onAddClick={props.onAddClick}
       />
       <AddButton

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styles from "./CertificateList.module.css";
 
 const CertificateList = ({ payload, ...props }) => {
@@ -8,7 +8,7 @@ const CertificateList = ({ payload, ...props }) => {
 
     const handleClick = () => {
       props.onAddClick(false);
-      props.onLiftUpListItem(payloadItem);
+      props.onLiftUpSelectedItem(payloadItem);
     };
 
     return (

@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import * as x509 from "@peculiar/x509";
+import ASN1 from "@lapo/asn1js";
 import styles from "./Dropzone.module.css";
 
 const getCertificatePayload = (certificate) => {
@@ -17,7 +18,9 @@ const getCertificatePayload = (certificate) => {
   const issuer = certificate.issuer;
   const issuerStartInx = issuer.indexOf("CN=");
   const issuerEndInx = issuer.indexOf(",", issuerStartInx);
-  const issuerCN = issuer.slice(issuerStartInx + 3, issuerEndInx);
+  const issuerCN = issuer
+    .slice(issuerStartInx + 3, issuerEndInx)
+    .replace(/["\\]+/g, "");
 
   const payload = {
     serialNumber: serialNumber, // our react key
@@ -33,7 +36,7 @@ const getCertificatePayload = (certificate) => {
 const Dropzone = ({ onSetPayload, ...props }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      const promises = acceptedFiles.map(function (file) {
+      const promises = acceptedFiles.map((file) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onabort = () => reject("file reading was aborted");

@@ -5,7 +5,6 @@ import Dropzone from "../UI/Dropzone";
 import Output from "../UI/Output";
 import styles from "./CardContent.module.css";
 
-
 const CardContent = () => {
   const [addIsActive, setAddIsActive] = useState(true);
 
@@ -14,7 +13,15 @@ const CardContent = () => {
     return localData ? JSON.parse(localData) : [];
   };
   const [payload, setPayload] = useState(initialValue);
-  const getPayload = (payload) => setPayload(payload);
+  const getPayload = (dropzonePayload) => {
+    setPayload((prevState) => {
+      const serialNums = new Set(prevState.map((cert) => cert.serialNumber));
+      return [
+        ...prevState,
+        ...dropzonePayload.filter((cert) => !serialNums.has(cert.serialNumber)),
+      ]; // merges without duplicates
+    });
+  };
 
   const [selectedItem, setSelectedItem] = useState();
   const getSelectedListItem = (listItem) => setSelectedItem(listItem);
@@ -29,7 +36,7 @@ const CardContent = () => {
         onAddClick={setAddIsActive}
         addIsActive={addIsActive}
         payload={payload}
-        onLiftUpListItem={getSelectedListItem}
+        onLiftUpSelectedItem={getSelectedListItem}
       />
       {addIsActive ? (
         <Dropzone onSetPayload={getPayload} />
