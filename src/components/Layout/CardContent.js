@@ -12,6 +12,7 @@ const CardContent = () => {
     const localData = localStorage.getItem("certificates");
     return localData ? JSON.parse(localData) : [];
   };
+
   const [payload, setPayload] = useState(initialValue);
   const getPayload = (dropzonePayload) => {
     setPayload((prevState) => {
